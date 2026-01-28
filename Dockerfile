@@ -1,73 +1,53 @@
-# =========================
-# Stage 1: Dependencies
-# =========================
+# =============================
+# 1. deps (cached)
+# =============================
 FROM node:20-alpine AS deps
-
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package.json only (monorepo doesn't have lockfile in backend)
-COPY package.json ./
-RUN npm install --omit=dev && npm cache clean --force
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install all dependencies for build
-FROM node:20-alpine AS dev-deps
 
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json ./
-RUN npm install && npm cache clean --force
-
-# =========================
-# Stage 2: Builder
-# =========================
+# =============================
+# 2. build (generate prisma FIRST)
+# =============================
 FROM node:20-alpine AS builder
-
 WORKDIR /app
-COPY --from=dev-deps /app/node_modules ./node_modules
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Generate Prisma client
+# 🔥 THIS LINE FIXES EVERYTHING
 RUN npx prisma generate
 
-# Build NestJS app
+# now TS knows Prisma types
 RUN npm run build
 
-# =========================
-# Stage 3: Runner
-# =========================
-FROM node:20-alpine AS runner
 
+# =============================
+# 3. prod deps
+# =============================
+FROM node:20-alpine AS prod-deps
 WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+COPY prisma ./prisma
+RUN npx prisma generate
+
+
+# =============================
+# 4. runtime
+# =============================
+FROM node:20-alpine AS runner
+WORKDIR /app
+
 ENV NODE_ENV=production
 
-# Install necessary packages for Prisma
-RUN apk add --no-cache libc6-compat
-
-# Create non-root user
-RUN addgroup --system --gid 1001 nodejs \
-    && adduser --system --uid 1001 nestjs
-
-# Copy production dependencies
-COPY --from=deps --chown=nestjs:nodejs /app/node_modules ./node_modules
-
-# Copy built application
-COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
-COPY --from=builder --chown=nestjs:nodejs /app/prisma.config.ts ./prisma.config.ts
-COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
-
-# Copy Prisma generated client from builder
-COPY --from=builder --chown=nestjs:nodejs /app/generated ./generated
-
-USER nestjs
+COPY --from=prod-deps /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=prod-deps /app/prisma ./prisma
 
 EXPOSE 5000
-ENV PORT=5000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:5000/ || exit 1
-
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main.js"]

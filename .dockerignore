@@ -9,7 +9,7 @@ dist
 .git
 .gitignore
 
-# Environment files (will be passed via docker-compose)
+# Environment files
 .env
 .env.*
 
@@ -24,12 +24,11 @@ test
 coverage
 *.spec.ts
 
-# Documentation
+# Docs
 *.md
 !README.md
 
-# Development
+# Dev tools (safe to ignore)
 .prettierrc
 eslint.config.mjs
-tsconfig*.json
 nest-cli.json
