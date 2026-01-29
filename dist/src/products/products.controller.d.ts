@@ -5,8 +5,8 @@ export declare class ProductsController {
     private readonly productsService;
     constructor(productsService: ProductsService);
     createProduct(createProductDto: CreateProductDto): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -15,8 +15,8 @@ export declare class ProductsController {
     }>;
     getAllProducts(page?: string, limit?: string): Promise<{
         data: {
-            id: string;
             name: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
             sku: string;
@@ -31,8 +31,8 @@ export declare class ProductsController {
         };
     }>;
     getProductById(id: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -40,8 +40,8 @@ export declare class ProductsController {
         stockQuantity: number;
     }>;
     updateProduct(id: string, updateProductDto: UpdateProductDto): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -49,8 +49,8 @@ export declare class ProductsController {
         stockQuantity: number;
     }>;
     deleteProduct(id: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;

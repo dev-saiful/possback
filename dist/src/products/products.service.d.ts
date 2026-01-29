@@ -5,8 +5,8 @@ export declare class ProductsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     createProduct(createProductDto: CreateProductDto): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -15,8 +15,8 @@ export declare class ProductsService {
     }>;
     getAllProducts(page?: number, limit?: number): Promise<{
         data: {
-            id: string;
             name: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
             sku: string;
@@ -31,8 +31,8 @@ export declare class ProductsService {
         };
     }>;
     getProductById(id: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -40,8 +40,8 @@ export declare class ProductsService {
         stockQuantity: number;
     }>;
     updateProduct(id: string, updateProductDto: UpdateProductDto): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;
@@ -49,8 +49,8 @@ export declare class ProductsService {
         stockQuantity: number;
     }>;
     deleteProduct(id: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         sku: string;

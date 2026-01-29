@@ -17,6 +17,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const sales_module_1 = require("./sales/sales.module");
 const products_module_1 = require("./products/products.module");
 const redis_module_1 = require("./redis/redis.module");
+const scheduler_module_1 = require("./scheduler/scheduler.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,6 +33,7 @@ exports.AppModule = AppModule = __decorate([
             sales_module_1.SalesModule,
             products_module_1.ProductsModule,
             redis_module_1.RedisModule,
+            scheduler_module_1.SchedulerModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

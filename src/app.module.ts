@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SalesModule } from './sales/sales.module';
 import { ProductsModule } from './products/products.module';
 import { RedisModule } from './redis/redis.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RedisModule } from './redis/redis.module';
     SalesModule,
     ProductsModule,
     RedisModule,
+    SchedulerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

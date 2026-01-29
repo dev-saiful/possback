@@ -1,50 +1,51 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateSaleDto } from './dto/create-sale.dto';
+import { Prisma } from '@prisma/client';
 export declare class SalesService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     createSale(userId: string, saleData: CreateSaleDto): Promise<({
         items: ({
             product: {
-                id: string;
                 name: string;
+                id: string;
                 sku: string;
             };
         } & {
             id: string;
-            price: import("@prisma/client-runtime-utils").Decimal;
-            saleId: string;
             productId: string;
             quantity: number;
+            price: Prisma.Decimal;
+            saleId: string;
         })[];
     } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
         userId: string;
-        totalAmount: import("@prisma/client-runtime-utils").Decimal;
+        totalAmount: Prisma.Decimal;
     }) | null>;
     getAllSales(page?: number, limit?: number): Promise<{
         data: ({
             items: ({
                 product: {
-                    id: string;
                     name: string;
+                    id: string;
                     sku: string;
                 };
             } & {
                 id: string;
-                price: import("@prisma/client-runtime-utils").Decimal;
-                saleId: string;
                 productId: string;
                 quantity: number;
+                price: Prisma.Decimal;
+                saleId: string;
             })[];
         } & {
             id: string;
             createdAt: Date;
             updatedAt: Date;
             userId: string;
-            totalAmount: import("@prisma/client-runtime-utils").Decimal;
+            totalAmount: Prisma.Decimal;
         })[];
         meta: {
             total: number;
@@ -56,22 +57,22 @@ export declare class SalesService {
     getSaleById(id: string): Promise<{
         items: ({
             product: {
-                id: string;
                 name: string;
+                id: string;
                 sku: string;
             };
         } & {
             id: string;
-            price: import("@prisma/client-runtime-utils").Decimal;
-            saleId: string;
             productId: string;
             quantity: number;
+            price: Prisma.Decimal;
+            saleId: string;
         })[];
     } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
         userId: string;
-        totalAmount: import("@prisma/client-runtime-utils").Decimal;
+        totalAmount: Prisma.Decimal;
     }>;
 }

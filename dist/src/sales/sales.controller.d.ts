@@ -13,16 +13,16 @@ export declare class SalesController {
     createSale(req: AuthenticatedRequest, createSaleDto: CreateSaleDto): Promise<({
         items: ({
             product: {
-                id: string;
                 name: string;
+                id: string;
                 sku: string;
             };
         } & {
             id: string;
-            price: import("@prisma/client-runtime-utils").Decimal;
-            saleId: string;
             productId: string;
             quantity: number;
+            price: import("@prisma/client-runtime-utils").Decimal;
+            saleId: string;
         })[];
     } & {
         id: string;
@@ -35,16 +35,16 @@ export declare class SalesController {
         data: ({
             items: ({
                 product: {
-                    id: string;
                     name: string;
+                    id: string;
                     sku: string;
                 };
             } & {
                 id: string;
-                price: import("@prisma/client-runtime-utils").Decimal;
-                saleId: string;
                 productId: string;
                 quantity: number;
+                price: import("@prisma/client-runtime-utils").Decimal;
+                saleId: string;
             })[];
         } & {
             id: string;
@@ -63,16 +63,16 @@ export declare class SalesController {
     getSaleById(id: string): Promise<{
         items: ({
             product: {
-                id: string;
                 name: string;
+                id: string;
                 sku: string;
             };
         } & {
             id: string;
-            price: import("@prisma/client-runtime-utils").Decimal;
-            saleId: string;
             productId: string;
             quantity: number;
+            price: import("@prisma/client-runtime-utils").Decimal;
+            saleId: string;
         })[];
     } & {
         id: string;
